@@ -18,21 +18,21 @@ create table user_friends(
 create table user_friends_request(
                           user_id int not null,
                           friend_id int not null,
-                          constraint user_to_user foreign key (user_id) references user_info (user_id),
-                          constraint friend_to_user foreign key (friend_id) references user_info (user_id)
+                          constraint user_request_to_user foreign key (user_id) references user_info (user_id),
+                          constraint friend_request_to_user foreign key (friend_id) references user_info (user_id)
 );
 
 create table user_groups(
                             group_id int not null primary key auto_increment,
-                            group_name String not null,
+                            group_name varchar(200) not null,
                             admin_id int not null,
-                            constraint user_to_user foreign key (admin_id) references user_info (user_id),
+                            constraint group_admin_to_user foreign key (admin_id) references user_info (user_id)
 );
 
 create table group_users(
                           group_id int not null,
                           friend_id int not null,
-                          constraint friend_to_user foreign key (friend_id) references user_groups (group_id)
+                          constraint group_user_to_user foreign key (friend_id) references user_groups (group_id)
 );
 
 create table user_roles(
