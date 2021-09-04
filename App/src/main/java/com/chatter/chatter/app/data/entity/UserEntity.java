@@ -1,0 +1,165 @@
+package com.chatter.chatter.app.data.entity;
+
+import com.chatter.chatter.app.data.embedabble.UserEntityDetails;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.lang.Nullable;
+
+import javax.persistence.*;
+import java.util.Objects;
+import java.util.Set;
+
+@Entity
+@Table(name = "app_users")
+public class UserEntity {
+
+    @Id
+    @GeneratedValue
+    private Long userId;
+
+    private String login;
+
+    private String password;
+
+    private String email;
+
+    @Nullable
+    private String passwordToken;
+
+    private boolean enabled;
+
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(name="user_friends",
+            joinColumns=@JoinColumn(name="user_id"),
+            inverseJoinColumns=@JoinColumn(name="friend_id")
+    )
+    private Set<UserEntity> friends;
+
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(name="user_friends",
+            joinColumns=@JoinColumn(name="friend_id"),
+            inverseJoinColumns=@JoinColumn(name="user_id")
+    )
+    private Set<UserEntity> friendOf;
+
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_friends_request", joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "friend_id"))
+    private Set<UserEntity> pendingRequest;
+
+    @Embedded
+    private UserEntityDetails mUserEntityDetails;
+
+    public UserEntity(
+            Long userId, String login, String password, String email, String passwordToken, boolean enabled,
+            Set<UserEntity> friends, Set<UserEntity> friendsOf, Set<UserEntity> pendingRequest, UserEntityDetails userEntityDetails
+    ) {
+        this.userId = userId;
+        this.login = login;
+        this.password = password;
+        this.email = email;
+        this.passwordToken = passwordToken;
+        this.enabled = enabled;
+        this.friends = friends;
+        this.friendOf = friendsOf;
+        this.pendingRequest = pendingRequest;
+        mUserEntityDetails = userEntityDetails;
+    }
+
+    protected UserEntity() {}
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPasswordToken() {
+        return passwordToken;
+    }
+
+    public void setPasswordToken(String passwordToken) {
+        this.passwordToken = passwordToken;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public Set<UserEntity> getFriends() {
+        return friends;
+    }
+
+    public void setFriends(Set<UserEntity> friends) {
+        this.friends = friends;
+    }
+
+    public Set<UserEntity> getPendingRequest() {
+        return pendingRequest;
+    }
+
+    public void setPendingRequest(Set<UserEntity> pendingRequest) {
+        this.pendingRequest = pendingRequest;
+    }
+
+    public UserEntityDetails getUserEntityDetails() {
+        return mUserEntityDetails;
+    }
+
+    public void setUserEntityDetails(UserEntityDetails userEntityDetails) {
+        mUserEntityDetails = userEntityDetails;
+    }
+
+    public Set<UserEntity> getFriendOf() {
+        return friendOf;
+    }
+
+    public void setFriendOf(Set<UserEntity> friendOf) {
+        this.friendOf = friendOf;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserEntity that = (UserEntity) o;
+        return userId.equals(that.userId) && login.equals(that.login) && password.equals(that.password);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(userId, login, password);
+    }
+}

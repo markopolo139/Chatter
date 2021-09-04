@@ -10,10 +10,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 //		(Future) Security for message, users in base and sending files
 //		Maybe use JWT (tokens)
 // Base:
-//		Storing user login and password (used to login) (1)
-//		User Friends (1)
-//		User Pending friend request (1)
-//		Groups (?) (Group name and group admin as PK)
+//		create entity User(all data from base + user friends + user_requests) (1)
+//		Group entity (group name with admin and their users) (1)
 //	WebSocket:
 //		Messaging (to user and groups)
 //		Sending files (etc PDF, photos) (?)
@@ -22,9 +20,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 //		Sending files (etc PDF, photos)
 //		Friends Requests (add or decline) (if 'add' add user to user friends and reverse)(later delete pending request) (1)
 //		Search for friend (1)
-//		Creating groups (1/?)
+//		Creating groups (1/?) (must be unique admin or group (may be both))
+//		add (must be in admin friends) or delete (must be in group) user to/from group (1)
 //		Creating message (1)
-
+//	WEB:
+//	model for user (without friends requests and friends, and password) (1)
+//	users friends and requests will be in separate screens (1)
 @SpringBootApplication
 public class AppApplication {
 
