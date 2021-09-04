@@ -20,8 +20,8 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
     Optional<UserEntity> findByUserEntityDetails_LastName(String lastName);
 
-    List<UserEntity> findByLoginLike(String loginPattern); //TODO: remember to add % at end
+    List<UserEntity> findAllByLoginLike(String loginPattern); //TODO: remember to add % at end
 
-    List<UserEntity> findByUserEntityDetails_FirstNameLike(String firstNamePattern);
+    List<UserEntity> findAllByUserEntityDetails_FirstNameLike(String firstNamePattern);
 
 }

@@ -42,7 +42,7 @@ public class UserEntity {
     private Set<UserEntity> pendingRequest;
 
     @Embedded
-    private UserEntityDetails mUserEntityDetails;
+    private UserEntityDetails userEntityDetails;
 
     public UserEntity(
             Long userId, String login, String password, String email, String passwordToken, boolean enabled,
@@ -56,7 +56,7 @@ public class UserEntity {
         this.enabled = enabled;
         this.friends = friends;
         this.pendingRequest = pendingRequest;
-        mUserEntityDetails = userEntityDetails;
+        this.userEntityDetails = userEntityDetails;
     }
 
     protected UserEntity() {}
@@ -126,11 +126,11 @@ public class UserEntity {
     }
 
     public UserEntityDetails getUserEntityDetails() {
-        return mUserEntityDetails;
+        return userEntityDetails;
     }
 
     public void setUserEntityDetails(UserEntityDetails userEntityDetails) {
-        mUserEntityDetails = userEntityDetails;
+        this.userEntityDetails = userEntityDetails;
     }
 
     @Override
