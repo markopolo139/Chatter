@@ -36,7 +36,7 @@ public class UserEntity {
     private Set<UserEntity> friends;
 
     @JsonIgnore
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(name = "user_friends_request", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "friend_id"))
     private Set<UserEntity> pendingRequest;
@@ -44,9 +44,16 @@ public class UserEntity {
     @Embedded
     private UserEntityDetails userEntityDetails;
 
+    @JsonIgnore
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_roles", joinColumns = {
+            @JoinColumn(name = "user_id")
+    })
+    private Set<String> userRoles;
+
     public UserEntity(
             Long userId, String login, String password, String email, String passwordToken, boolean enabled,
-            Set<UserEntity> friends, Set<UserEntity> pendingRequest, UserEntityDetails userEntityDetails
+            Set<UserEntity> friends, Set<UserEntity> pendingRequest, UserEntityDetails userEntityDetails, Set<String> userRoles
     ) {
         this.userId = userId;
         this.login = login;
@@ -57,6 +64,7 @@ public class UserEntity {
         this.friends = friends;
         this.pendingRequest = pendingRequest;
         this.userEntityDetails = userEntityDetails;
+        this.userRoles = userRoles;
     }
 
     protected UserEntity() {}
@@ -131,6 +139,14 @@ public class UserEntity {
 
     public void setUserEntityDetails(UserEntityDetails userEntityDetails) {
         this.userEntityDetails = userEntityDetails;
+    }
+
+    public Set<String> getUserRoles() {
+        return userRoles;
+    }
+
+    public void setUserRoles(Set<String> userRoles) {
+        this.userRoles = userRoles;
     }
 
     @Override
