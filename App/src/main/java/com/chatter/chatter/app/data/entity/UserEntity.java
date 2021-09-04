@@ -36,14 +36,6 @@ public class UserEntity {
     private Set<UserEntity> friends;
 
     @JsonIgnore
-    @ManyToMany
-    @JoinTable(name="user_friends",
-            joinColumns=@JoinColumn(name="friend_id"),
-            inverseJoinColumns=@JoinColumn(name="user_id")
-    )
-    private Set<UserEntity> friendOf;
-
-    @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_friends_request", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "friend_id"))
@@ -54,7 +46,7 @@ public class UserEntity {
 
     public UserEntity(
             Long userId, String login, String password, String email, String passwordToken, boolean enabled,
-            Set<UserEntity> friends, Set<UserEntity> friendsOf, Set<UserEntity> pendingRequest, UserEntityDetails userEntityDetails
+            Set<UserEntity> friends, Set<UserEntity> pendingRequest, UserEntityDetails userEntityDetails
     ) {
         this.userId = userId;
         this.login = login;
@@ -63,7 +55,6 @@ public class UserEntity {
         this.passwordToken = passwordToken;
         this.enabled = enabled;
         this.friends = friends;
-        this.friendOf = friendsOf;
         this.pendingRequest = pendingRequest;
         mUserEntityDetails = userEntityDetails;
     }
@@ -140,14 +131,6 @@ public class UserEntity {
 
     public void setUserEntityDetails(UserEntityDetails userEntityDetails) {
         mUserEntityDetails = userEntityDetails;
-    }
-
-    public Set<UserEntity> getFriendOf() {
-        return friendOf;
-    }
-
-    public void setFriendOf(Set<UserEntity> friendOf) {
-        this.friendOf = friendOf;
     }
 
     @Override

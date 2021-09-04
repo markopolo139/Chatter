@@ -10,7 +10,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 //		(Future) Security for message, users in base and sending files
 //		Maybe use JWT (tokens)
 // Base:
-//		create entity User(all data from base + user friends + user_requests) (1)
 //		Group entity (group name with admin and their users) (1)
 //	WebSocket:
 //		Messaging (to user and groups)
