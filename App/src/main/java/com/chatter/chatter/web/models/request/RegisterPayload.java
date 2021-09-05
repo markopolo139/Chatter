@@ -4,6 +4,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 public class RegisterPayload {
@@ -15,6 +16,7 @@ public class RegisterPayload {
     public String password;
 
     @NotBlank
+    @Email
     public String email;
 
     @NotBlank

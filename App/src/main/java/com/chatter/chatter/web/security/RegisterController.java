@@ -1,5 +1,6 @@
 package com.chatter.chatter.web.security;
 
+import com.chatter.chatter.app.exceptions.InvalidPasswordException;
 import com.chatter.chatter.app.exceptions.UserAlreadyExistsException;
 import com.chatter.chatter.app.services.RegisterService;
 import com.chatter.chatter.web.models.request.RegisterPayload;
@@ -19,7 +20,8 @@ public class RegisterController {
     private RegisterService mRegisterService;
 
     @PostMapping("/register")
-    public void registerUser(@Valid @RequestBody RegisterPayload registerPayload) throws UserAlreadyExistsException {
+    public void registerUser(@Valid @RequestBody RegisterPayload registerPayload)
+            throws UserAlreadyExistsException, InvalidPasswordException {
         mRegisterService.saveUser(registerPayload);
     }
 
