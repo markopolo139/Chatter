@@ -41,7 +41,7 @@ public class ForgotPasswordService {
 
         String token = RandomString.make(30);
 
-        String requestUrl = baseUrl + "/passwordRecovery?token=" + token;
+        String requestUrl = baseUrl + "/password/recovery/token?token=" + token;
 
         userEntity.setPasswordToken(token);
         mUserRepository.save(userEntity);

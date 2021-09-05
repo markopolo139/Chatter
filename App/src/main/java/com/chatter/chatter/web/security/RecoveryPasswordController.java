@@ -29,6 +29,11 @@ public class RecoveryPasswordController {
         mForgotPasswordService.createTokenAndSendEmail(email, WebUtils.getBaseUrl(httpServletRequest));
     }
 
+    @GetMapping("/password/recovery/token")
+    public String getToken(@Valid @NotBlank @RequestParam(name = "token") String token) {
+        return token;
+    }
+
     @PutMapping("/password/recovery")
     public void updatePassword(
             @Valid @NotBlank @RequestParam(name = "token") String token,
