@@ -6,6 +6,7 @@ import com.chatter.chatter.app.data.repository.UserRepository;
 import com.chatter.chatter.app.exceptions.UserAlreadyExistsException;
 import com.chatter.chatter.web.models.request.RegisterPayload;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -16,6 +17,9 @@ public class RegisterService {
     @Autowired
     private UserRepository mUserRepository;
 
+    @Autowired
+    private PasswordEncoder mPasswordEncoder;
+
     public void saveUser(RegisterPayload registerPayload) throws UserAlreadyExistsException {
 
         if (mUserRepository.findByLogin(registerPayload.login).isPresent()
@@ -24,7 +28,7 @@ public class RegisterService {
 
         mUserRepository.save(
                 new UserEntity(
-                        null, registerPayload.login,registerPayload.password,
+                        null, registerPayload.login, mPasswordEncoder.encode(registerPayload.password),
                         registerPayload.email,null,true,
                         Collections.emptySet(), Collections.emptySet(),
                         new UserEntityDetails(registerPayload.firstName,registerPayload.lastName,null),
