@@ -26,14 +26,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
+        http
+                .csrf()
+                .disable()
                 .cors()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/register", "/forgotPassword", "/login", "/passwordRecovery")
+                .antMatchers("/register", "/forgot/password", "/login", "/password/recovery")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
+                .and()
+                .httpBasic()
                 .and()
                 .formLogin()
                 .usernameParameter("login")
@@ -44,9 +48,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logout()
                 .logoutUrl("/logout")
                 .deleteCookies("JSESSIONID")
-                .logoutSuccessUrl("/login")
-                .and()
-                .httpBasic();
+                .logoutSuccessUrl("/login");
     }
 
     @Bean
