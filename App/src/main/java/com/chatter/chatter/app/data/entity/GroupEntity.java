@@ -17,13 +17,13 @@ public class GroupEntity {
     private String groupName;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "admin_id", referencedColumnName = "user_id")
+    @JoinColumn(name = "admin_id")
     private UserEntity adminId;
 
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
             name = "users_in_group", joinColumns = @JoinColumn(name = "group_id"),
-            inverseJoinColumns = @JoinColumn(name = "friend_id", referencedColumnName = "user_id")
+            inverseJoinColumns = @JoinColumn(name = "friend_id")
     )
     private Set<UserEntity> usersInGroup;
 
