@@ -25,11 +25,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private MyUserDetails mMyUserDetails;
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(getAuthenticationProvider());
-    }
-
-    @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .cors()
@@ -44,7 +39,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .usernameParameter("login")
                 .passwordParameter("password")
                 .loginProcessingUrl("/login")
-                .defaultSuccessUrl("/profilePage")
+                .defaultSuccessUrl("/api/v1/profilePage")
                 .and()
                 .logout()
                 .logoutUrl("/logout")
