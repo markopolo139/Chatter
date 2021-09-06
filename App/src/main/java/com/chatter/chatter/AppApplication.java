@@ -3,16 +3,10 @@ package com.chatter.chatter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 //TODO:
-//	WEB:
-//		model for user (without friends requests and friends, and password) (1)
-//		users friends and requests will be in separate screens (1)
 //	WebSocket:
 //		Messaging (to user and groups)
 //		Sending files (etc PDF, photos) (?)
 // Security:
-//		Login (1)
-//		Registration (Profile photo) (1)
-//		Forgot Password (recovery) (1)
 //		(Future) Security for message, users in base and sending files
 //		Maybe use JWT (tokens)
 //	Application:

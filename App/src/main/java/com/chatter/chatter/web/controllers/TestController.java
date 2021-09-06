@@ -1,10 +1,12 @@
-package com.chatter.chatter.web;
+package com.chatter.chatter.web.controllers;
 
+import com.chatter.chatter.app.converters.UserConverter;
 import com.chatter.chatter.app.data.embedabble.UserEntityDetails;
 import com.chatter.chatter.app.data.entity.GroupEntity;
 import com.chatter.chatter.app.data.entity.UserEntity;
 import com.chatter.chatter.app.data.repository.GroupRepository;
 import com.chatter.chatter.app.data.repository.UserRepository;
+import com.chatter.chatter.web.models.response.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,17 +24,16 @@ public class TestController {
     @Autowired
     private GroupRepository mGroupRepository;
 
+    @Autowired
+    private UserConverter mUserConverter;
+
     @GetMapping("api/v1/test")
-    public GroupEntity testUser() throws Exception {
+    public UserModel testUser() throws Exception {
 
         UserEntity userEntity = mUserRepository.findById(1L).orElseThrow(Exception::new);
-        UserEntity userEntity2 = mUserRepository.findById(2L).orElseThrow(Exception::new);
 
-        GroupEntity groupEntity = new GroupEntity(null,"test", userEntity,Collections.singleton(userEntity2));
+        return mUserConverter.UserEntityToUserProfile(userEntity);
 
-        mGroupRepository.save(groupEntity);
-
-        return mGroupRepository.findById(2L).orElseThrow(Exception::new);
     }
 
 }
