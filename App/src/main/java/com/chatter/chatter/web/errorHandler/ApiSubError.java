@@ -17,7 +17,7 @@ public class ApiSubError {
 
     private ApiSubError() {}
 
-    private static class Builder {
+    public static class Builder {
         private ApiSubError mApiSubError = new ApiSubError();
 
         public Builder setDefaultAction(String defaultAction) {
