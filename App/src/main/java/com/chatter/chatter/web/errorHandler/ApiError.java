@@ -44,7 +44,7 @@ public class ApiError {
             return this;
         }
 
-        public Builder serApiSubErrors(List<ApiSubError> subErrors) {
+        public Builder setApiSubErrors(List<ApiSubError> subErrors) {
             mApiError.subApiErrors = subErrors;
             return this;
         }
