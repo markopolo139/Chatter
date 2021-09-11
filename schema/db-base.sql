@@ -42,3 +42,25 @@ create table user_roles(
                            `role` varchar(50) not null,
                            constraint role_to_user foreign key (user_id) references app_users (user_id)
 );
+
+create table user_message(
+                            user_message_id int not null primary key auto_increment,
+                            user_from_id int not null,
+                            user_to_id int not null,
+                            content varchar(300) not null,
+                            status enum('READ','DELIVERED','SEND') not null,
+                            when_send datetime not null,
+                            constraint user_from_to_user foreign key (user_from_id) references app_users (user_id),
+                            constraint user_to_to_user foreign key (user_to_id) references app_users (user_id)
+);
+
+create table group_message(
+                              group_message_id int not null primary key auto_increment,
+                              user_from_id int not null,
+                              group_to_id int not null,
+                              content varchar(300) not null,
+                              status enum('READ','DELIVERED','SEND') not null,
+                              when_send datetime not null,
+                              constraint user_from_to_user2 foreign key (user_from_id) references app_users (user_id),
+                              constraint group_to_to_user foreign key (group_to_id) references user_groups (group_id)
+);

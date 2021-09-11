@@ -23,7 +23,9 @@ import java.io.UnsupportedEncodingException;
 @Service
 public class ForgotPasswordService {
 
-    public static String FROM_EMAIL = "mareks.seget@onet.pl";
+    public static final String FROM_EMAIL = "mareks.seget@onet.pl";
+
+    public static final String RECOVERY_PATH = "/password/recovery/token?token=";
 
     @Autowired
     private UserRepository mUserRepository;
@@ -41,7 +43,7 @@ public class ForgotPasswordService {
 
         String token = RandomString.make(30);
 
-        String requestUrl = baseUrl + "/password/recovery/token?token=" + token;
+        String requestUrl = baseUrl + RECOVERY_PATH + token;
 
         userEntity.setPasswordToken(token);
         mUserRepository.save(userEntity);
