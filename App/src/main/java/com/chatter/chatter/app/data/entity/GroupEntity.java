@@ -40,10 +40,6 @@ public class GroupEntity {
         return groupId;
     }
 
-    public void setGroupId(Long groupId) {
-        this.groupId = groupId;
-    }
-
     public String getGroupName() {
         return groupName;
     }
