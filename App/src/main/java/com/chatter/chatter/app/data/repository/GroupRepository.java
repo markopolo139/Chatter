@@ -10,7 +10,7 @@ import java.util.Optional;
 @Repository
 public interface GroupRepository extends JpaRepository<GroupEntity, Long> {
 
-    Optional<GroupEntity> findByGroupNameAAndAdminId_Login(String groupName, String adminLogin);
+    Optional<GroupEntity> findByGroupNameAndAdminId_Login(String groupName, String adminLogin);
 
     List<GroupEntity> findAllByGroupNameLike(String groupNamePattern);
 

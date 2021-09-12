@@ -24,7 +24,7 @@ public class GroupMessageConverterImpl implements GroupMessageConverter{
                 null,
                 mUserRepository.findByLogin(groupMessagePayload.userFromLogin)
                         .orElseThrow(() -> new UsernameNotFoundException("User not found")),
-                mGroupRepository.findByGroupNameAAndAdminId_Login(
+                mGroupRepository.findByGroupNameAndAdminId_Login(
                         groupMessagePayload.groupToName, groupMessagePayload.groupToAdminLogin
                 ).orElseThrow(() -> new UsernameNotFoundException("User not found")),
                 groupMessagePayload.content,
