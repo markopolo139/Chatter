@@ -25,6 +25,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private MyUserDetails mMyUserDetails;
 
     @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(mMyUserDetails);
+    }
+
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf()
@@ -32,7 +37,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .cors()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/register", "/forgot/password", "/login", "/password/recovery", "/password/recovery/token")
+                .antMatchers("/register", "/forgot/password", "/login", "/password/recovery", "/password/recovery/token", "/test")
                 .permitAll()
                 .anyRequest()
                 .authenticated()

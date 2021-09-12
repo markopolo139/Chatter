@@ -162,7 +162,7 @@ public class CustomUser extends User {
             return this;
         }
 
-        public UserDetails build() {
+        public CustomUser build() {
             String encodedPassword = this.passwordEncoder.apply(this.password);
             return new CustomUser(this.username, encodedPassword, !this.disabled, !this.accountExpired,
                     !this.credentialsExpired, !this.accountLocked, this.authorities,

@@ -17,16 +17,19 @@ public class MyUserDetails implements UserDetailsService {
     private UserRepository mUserRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public CustomUser loadUserByUsername(String username) throws UsernameNotFoundException {
         UserEntity userEntity = mUserRepository.findByLogin(username).orElseThrow(
                 () -> new UsernameNotFoundException("Username not found")
         );
 
-        return CustomUser.builder()
+        return CustomUser.customBuilder()
                 .username(userEntity.getLogin())
                 .password(userEntity.getPassword())
                 .authorities(userEntity.getUserRoles().toArray(new String[]{}))
                 .disabled(!userEntity.isEnabled())
+                .firstName(userEntity.getUserEntityDetails().getFirstName())
+                .lastName(userEntity.getUserEntityDetails().getLastName())
+                .photo(userEntity.getUserEntityDetails().getPhoto())
                 .build();
     }
 }
