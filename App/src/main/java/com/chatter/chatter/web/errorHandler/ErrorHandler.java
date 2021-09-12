@@ -1,5 +1,6 @@
 package com.chatter.chatter.web.errorHandler;
 
+import com.chatter.chatter.app.exceptions.InvalidContentTypeException;
 import com.chatter.chatter.app.exceptions.InvalidPasswordException;
 import com.chatter.chatter.app.exceptions.UserAlreadyExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +57,17 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleUserAlreadyExistsException(UserAlreadyExistsException exception) {
         ApiError apiError = ApiError.builder()
                 .setDefaultAction("Create user with another login or email")
+                .setHttpStatus(HttpStatus.BAD_REQUEST)
+                .setErrorMessage(exception.getMessage())
+                .build();
+
+        return convertErrorToResponseEntity(apiError);
+    }
+
+    @ExceptionHandler(InvalidContentTypeException.class)
+    public ResponseEntity<Object> handleInvalidContentTypeException(InvalidContentTypeException exception) {
+        ApiError apiError = ApiError.builder()
+                .setDefaultAction("Send file with correct content type")
                 .setHttpStatus(HttpStatus.BAD_REQUEST)
                 .setErrorMessage(exception.getMessage())
                 .build();
