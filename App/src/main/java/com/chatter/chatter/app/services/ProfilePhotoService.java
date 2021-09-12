@@ -34,7 +34,7 @@ public class ProfilePhotoService {
 
         if (!Objects.equals(multipartFile.getContentType(), MediaType.IMAGE_JPEG_VALUE)
                 && !Objects.equals(multipartFile.getContentType(), MediaType.IMAGE_PNG_VALUE))
-            throw new InvalidContentTypeException();
+            throw new InvalidContentTypeException(multipartFile);
 
         UserEntity userEntity = mUserRepository.findByLogin(login)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
