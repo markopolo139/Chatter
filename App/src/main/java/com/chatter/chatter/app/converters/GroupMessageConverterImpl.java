@@ -9,7 +9,9 @@ import com.chatter.chatter.web.models.response.GroupMessageModel;
 import com.chatter.core.values.MessageStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Component;
 
+@Component
 public class GroupMessageConverterImpl implements GroupMessageConverter{
 
     @Autowired
@@ -46,6 +48,8 @@ public class GroupMessageConverterImpl implements GroupMessageConverter{
 
     @Override
     public NotificationModel modelToNotification(GroupMessageModel groupMessageModel) {
-        return new NotificationModel(groupMessageModel.userFromLogin, groupMessageModel.groupToName);
+        return new NotificationModel(
+                groupMessageModel.userFromLogin, groupMessageModel.groupToName, groupMessageModel.whenSend
+        );
     }
 }

@@ -10,7 +10,9 @@ import com.chatter.chatter.web.models.response.UserMessageModel;
 import com.chatter.core.values.MessageStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UserMessageConverterImpl implements UserMessageConverter{
 
     @Autowired
@@ -42,6 +44,6 @@ public class UserMessageConverterImpl implements UserMessageConverter{
 
     @Override
     public NotificationModel modelToNotification(UserMessageModel userMessageModel) {
-        return new NotificationModel(userMessageModel.userFromLogin,null);
+        return new NotificationModel(userMessageModel.userFromLogin,null, userMessageModel.whenSend);
     }
 }

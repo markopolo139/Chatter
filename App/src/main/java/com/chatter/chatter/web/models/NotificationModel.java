@@ -4,6 +4,7 @@ import org.springframework.lang.Nullable;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
 public class NotificationModel {
 
@@ -13,8 +14,12 @@ public class NotificationModel {
     @Nullable
     public String groupName;
 
-    public NotificationModel(String userFromLogin, @Nullable String groupName) {
+    @NotNull
+    public LocalDateTime whenSend;
+
+    public NotificationModel(String userFromLogin, @Nullable String groupName, LocalDateTime whenSend) {
         this.userFromLogin = userFromLogin;
         this.groupName = groupName;
+        this.whenSend = whenSend;
     }
 }
