@@ -34,7 +34,8 @@ create table user_groups(
 create table users_in_group(
                           group_id int not null,
                           friend_id int not null,
-                          constraint group_user_to_user foreign key (friend_id) references user_groups (group_id)
+                          constraint group_user_to_user foreign key (friend_id) references app_users (user_id),
+                          constraint group_user_to_group foreign key (group_id) references user_groups (group_id)
 );
 
 create table user_roles(
