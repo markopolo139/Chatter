@@ -16,9 +16,9 @@ public interface GroupRepository extends JpaRepository<GroupEntity, Long> {
 
     List<GroupEntity> findAllByGroupNameLike(String groupNamePattern);
 
-    @Query(value = "select ug.group_id from user_groups ug" +
+    @Query(value = "select * from user_groups ug" +
             " where ug.admin_id = (select user_id from app_users where app_users.login = :login) " +
             "or ug.group_id in (select uig.group_id from app_users au join users_in_group uig on au.user_id = uig.friend_id where login = :login)", nativeQuery = true)
-    List<Long> findAllGroupsWithLogin(@Param("login") String login);
+    List<GroupEntity> findAllGroupsWithLogin(@Param("login") String login);
 
 }
