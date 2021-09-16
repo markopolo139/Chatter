@@ -1,8 +1,8 @@
-package com.chatter.chatter.web.security;
+package com.chatter.chatter.web.controllers;
 
 import com.chatter.chatter.app.exceptions.InvalidPasswordException;
 import com.chatter.chatter.app.exceptions.UserAlreadyExistsException;
-import com.chatter.chatter.app.services.RegisterService;
+import com.chatter.chatter.app.services.UserManagementService;
 import com.chatter.chatter.web.models.request.RegisterPayload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,15 +14,15 @@ import javax.validation.Valid;
 
 @RestController
 @CrossOrigin
-public class RegisterController {
+public class UserManagementController {
 
     @Autowired
-    private RegisterService mRegisterService;
+    private UserManagementService mUserManagementService;
 
     @PostMapping("/register")
     public void registerUser(@Valid @RequestBody RegisterPayload registerPayload)
             throws UserAlreadyExistsException, InvalidPasswordException {
-        mRegisterService.saveUser(registerPayload);
+        mUserManagementService.saveUser(registerPayload);
     }
 
 }

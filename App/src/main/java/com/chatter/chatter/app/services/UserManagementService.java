@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 @Service
-public class RegisterService {
+public class UserManagementService {
 
     @Autowired
     private UserRepository mUserRepository;
