@@ -23,16 +23,16 @@ public class UserModel {
     public int howManyFriends;
 
     @Nullable
-    public Resource profilePhoto;
+    public String profilePhotoPath;
 
     public UserModel(
-            String firstName, String lastName, String login, int howManyFriends, @Nullable Resource profilePhoto
+            String firstName, String lastName, String login, int howManyFriends, @Nullable String profilePhotoPath
     ) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.login = login;
         this.howManyFriends = howManyFriends;
-        this.profilePhoto = profilePhoto;
+        this.profilePhotoPath = profilePhotoPath;
     }
 
 }

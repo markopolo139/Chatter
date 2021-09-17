@@ -19,8 +19,7 @@ public class UserConverterImpl implements UserConverter{
                 userEntity.getUserEntityDetails().getLastName(),
                 userEntity.getLogin(),
                 userEntity.getFriends().size(),
-                userEntity.getUserEntityDetails().getPhoto() != null ?
-                        new FileSystemResource(Paths.get(userEntity.getUserEntityDetails().getPhoto())) : null
+                userEntity.getUserEntityDetails().getPhoto()
                 );
     }
 
