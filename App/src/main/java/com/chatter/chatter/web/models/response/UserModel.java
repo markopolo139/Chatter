@@ -23,10 +23,10 @@ public class UserModel {
     public int howManyFriends;
 
     @Nullable
-    public byte[] profilePhoto;
+    public Resource profilePhoto;
 
     public UserModel(
-            String firstName, String lastName, String login, int howManyFriends, @Nullable byte[] profilePhoto
+            String firstName, String lastName, String login, int howManyFriends, @Nullable Resource profilePhoto
     ) {
         this.firstName = firstName;
         this.lastName = lastName;

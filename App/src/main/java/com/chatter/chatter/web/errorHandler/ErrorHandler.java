@@ -1,8 +1,6 @@
 package com.chatter.chatter.web.errorHandler;
 
-import com.chatter.chatter.app.exceptions.InvalidContentTypeException;
-import com.chatter.chatter.app.exceptions.InvalidPasswordException;
-import com.chatter.chatter.app.exceptions.UserAlreadyExistsException;
+import com.chatter.chatter.app.exceptions.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -17,6 +15,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.ConstraintViolationException;
+import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -68,6 +67,28 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleInvalidContentTypeException(InvalidContentTypeException exception) {
         ApiError apiError = ApiError.builder()
                 .setDefaultAction("Send file with correct content type")
+                .setHttpStatus(HttpStatus.BAD_REQUEST)
+                .setErrorMessage(exception.getMessage())
+                .build();
+
+        return convertErrorToResponseEntity(apiError);
+    }
+
+    @ExceptionHandler(InvalidPathException.class)
+    public ResponseEntity<Object> handleInvalidPathException(InvalidPathException exception) {
+        ApiError apiError = ApiError.builder()
+                .setDefaultAction("Contact with admin")
+                .setHttpStatus(HttpStatus.BAD_REQUEST)
+                .setErrorMessage("File not found")
+                .build();
+
+        return convertErrorToResponseEntity(apiError);
+    }
+
+    @ExceptionHandler(FolderCreationError.class)
+    public ResponseEntity<Object> handleFolderCreationError(FolderCreationError exception) {
+        ApiError apiError = ApiError.builder()
+                .setDefaultAction("Try again later")
                 .setHttpStatus(HttpStatus.BAD_REQUEST)
                 .setErrorMessage(exception.getMessage())
                 .build();

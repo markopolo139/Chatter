@@ -3,15 +3,19 @@ package com.chatter.chatter.app.services;
 import com.chatter.chatter.app.data.entity.UserEntity;
 import com.chatter.chatter.app.data.repository.UserRepository;
 import com.chatter.chatter.app.exceptions.InvalidContentTypeException;
+import com.chatter.chatter.app.exceptions.InvalidPathException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.Objects;
 
 @Service
@@ -20,13 +24,16 @@ public class ProfilePhotoService {
     @Autowired
     private UserRepository mUserRepository;
 
-    public Resource getProfilePhoto(String login) {
+    public Resource getProfilePhoto(String login) throws InvalidPathException {
 
-        return new ByteArrayResource(
-                mUserRepository.findByLogin(login)
-                        .orElseThrow(() -> new UsernameNotFoundException("User not found"))
-                        .getUserEntityDetails().getPhoto()
-        );
+        String filePath = mUserRepository.findByLogin(login)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"))
+                .getUserEntityDetails().getPhoto();
+
+        if (filePath == null)
+            throw new InvalidPathException();
+
+        return new FileSystemResource(Paths.get(filePath));
 
     }
 
@@ -39,7 +46,15 @@ public class ProfilePhotoService {
         UserEntity userEntity = mUserRepository.findByLogin(login)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-        userEntity.getUserEntityDetails().setPhoto(multipartFile.getBytes());
+        File file = new File(
+                Paths.get(
+                        UserManagementService.RESOURCE_PATH + "/" + login + "/profilePhoto"
+                ).toAbsolutePath().toUri()
+        );
+
+        multipartFile.transferTo(file);
+
+        userEntity.getUserEntityDetails().setPhoto(file.getAbsolutePath());
 
         mUserRepository.save(userEntity);
     }

@@ -13,11 +13,10 @@ public class UserEntityDetails {
 
     private String lastName;
 
-    @Lob
     @Nullable
-    private byte[] photo;
+    private String photo;
 
-    public UserEntityDetails(String firstName, String lastName, byte[] photo) {
+    public UserEntityDetails(String firstName, String lastName, String photo) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.photo = photo;
@@ -41,11 +40,11 @@ public class UserEntityDetails {
         this.lastName = lastName;
     }
 
-    public byte[] getPhoto() {
+    public String getPhoto() {
         return photo;
     }
 
-    public void setPhoto(byte[] photo) {
+    public void setPhoto(String photo) {
         this.photo = photo;
     }
 }

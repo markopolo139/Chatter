@@ -19,7 +19,7 @@ public class CustomUser extends User {
 
     private String firstName;
     private String lastName;
-    private byte[] photo;
+    private String photo;
     
     public static Builder customBuilder() {
         return new Builder();
@@ -27,7 +27,7 @@ public class CustomUser extends User {
     
     public CustomUser(
             String username, String password, Collection<? extends GrantedAuthority> authorities,
-            String firstName, String lastName, byte[] photo
+            String firstName, String lastName, String photo
     ) {
         super(username, password, authorities);
         this.firstName = firstName;
@@ -38,7 +38,7 @@ public class CustomUser extends User {
     public CustomUser(
             String username, String password, boolean enabled, boolean accountNonExpired,
             boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities,
-            String firstName, String lastName, byte[] photo
+            String firstName, String lastName, String photo
     ) {
         super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
         this.firstName = firstName;
@@ -54,7 +54,7 @@ public class CustomUser extends User {
         return lastName;
     }
 
-    public byte[] getPhoto() {
+    public String getPhoto() {
         return photo;
     }
 
@@ -78,7 +78,7 @@ public class CustomUser extends User {
 
         private String lastName;
 
-        private byte[] photo;
+        private String photo;
 
         private Function<String, String> passwordEncoder = (password) -> password;
         
@@ -157,7 +157,7 @@ public class CustomUser extends User {
             return this;
         }
 
-        public Builder photo(byte[] photo) {
+        public Builder photo(String photo) {
             this.photo = photo;
             return this;
         }

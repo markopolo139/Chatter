@@ -7,7 +7,7 @@ create table app_users(
                           enabled boolean not null,
                           first_name varchar(100) not null,
                           last_name varchar(150) not null,
-                          photo MEDIUMBLOB
+                          photo varchar(150)
 );
 
 create table user_friends(

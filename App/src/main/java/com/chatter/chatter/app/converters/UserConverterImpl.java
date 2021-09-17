@@ -2,8 +2,10 @@ package com.chatter.chatter.app.converters;
 
 import com.chatter.chatter.app.data.entity.UserEntity;
 import com.chatter.chatter.web.models.response.UserModel;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Component;
 
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -18,7 +20,7 @@ public class UserConverterImpl implements UserConverter{
                 userEntity.getLogin(),
                 userEntity.getFriends().size(),
                 userEntity.getUserEntityDetails().getPhoto() != null ?
-                        userEntity.getUserEntityDetails().getPhoto() : null
+                        new FileSystemResource(Paths.get(userEntity.getUserEntityDetails().getPhoto())) : null
                 );
     }
 
