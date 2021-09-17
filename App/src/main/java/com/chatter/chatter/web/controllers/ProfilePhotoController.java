@@ -15,9 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.security.Principal;
 
 @RestController
 @CrossOrigin
@@ -29,7 +27,7 @@ public class ProfilePhotoController {
 
     @GetMapping(value = "/api/v1/get/profile/photo/{login}", produces = MediaType.IMAGE_PNG_VALUE)
     public Resource getProfilePhoto(@Valid @NotBlank @PathVariable String login) throws  InvalidPathException {
-        return mProfilePhotoService.getProfilePhoto(login);
+        return mProfilePhotoService.getProfilePhotoByLogin(login);
     }
 
     @PutMapping(value = "/api/v1/set/profile/photo")
