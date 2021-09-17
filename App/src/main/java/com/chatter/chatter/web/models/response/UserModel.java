@@ -1,6 +1,5 @@
 package com.chatter.chatter.web.models.response;
 
-import org.springframework.core.io.Resource;
 import org.springframework.lang.Nullable;
 
 import javax.validation.constraints.Min;
@@ -23,16 +22,16 @@ public class UserModel {
     public int howManyFriends;
 
     @Nullable
-    public String profilePhotoPath;
+    public byte[] profilePhoto;
 
     public UserModel(
-            String firstName, String lastName, String login, int howManyFriends, @Nullable String profilePhotoPath
+            String firstName, String lastName, String login, int howManyFriends, @Nullable byte[] profilePhoto
     ) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.login = login;
         this.howManyFriends = howManyFriends;
-        this.profilePhotoPath = profilePhotoPath;
+        this.profilePhoto = profilePhoto;
     }
 
 }
