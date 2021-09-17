@@ -4,6 +4,9 @@ import com.chatter.chatter.app.data.entity.GroupEntity;
 import com.chatter.chatter.web.models.response.GroupModel;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
 public class GroupConverterImpl implements GroupConverter {
     @Override
@@ -12,5 +15,10 @@ public class GroupConverterImpl implements GroupConverter {
                 groupEntity.getGroupId(), groupEntity.getGroupName(),
                 groupEntity.getAdminId().getLogin(), groupEntity.getUsersInGroup().size()
         );
+    }
+
+    @Override
+    public List<GroupModel> convertFromEntityListToModelList(List<GroupEntity> groupEntityList) {
+        return groupEntityList.stream().map(this::convertFromEntityToModel).collect(Collectors.toList());
     }
 }
