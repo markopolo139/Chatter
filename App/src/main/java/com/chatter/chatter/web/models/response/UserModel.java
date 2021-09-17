@@ -21,17 +21,13 @@ public class UserModel {
     @Min(0)
     public int howManyFriends;
 
-    @Nullable
-    public byte[] profilePhoto;
-
     public UserModel(
-            String firstName, String lastName, String login, int howManyFriends, @Nullable byte[] profilePhoto
+            String firstName, String lastName, String login, int howManyFriends
     ) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.login = login;
         this.howManyFriends = howManyFriends;
-        this.profilePhoto = profilePhoto;
     }
 
 }
