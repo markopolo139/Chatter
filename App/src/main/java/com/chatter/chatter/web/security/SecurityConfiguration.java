@@ -4,6 +4,8 @@ import com.chatter.chatter.app.services.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.authentication.AnonymousAuthenticationProvider;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -82,6 +84,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Scope("singleton")
     public AnonymousAuthenticationFilter getAnonymousAuthenticationFilter() {
         return new AnonymousAuthenticationFilter("anonymous");
+    }
+
+    @Bean
+    public RoleHierarchy roleHierarchy() {
+        RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
+        roleHierarchy.setHierarchy("ROLE_ADMIN > ROLE_USER \n ROLE_USER > ROLE_GUEST");
+        return roleHierarchy;
     }
 
 }

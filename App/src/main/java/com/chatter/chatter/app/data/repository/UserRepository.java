@@ -49,4 +49,12 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     @Query(value = "delete from user_friends_request where friend_id = (" +
             "select user_id from app_users where login = :login)", nativeQuery = true)
     void deleteUserFromRequests(@Param("login") String login);
+
+    @Transactional
+    @Modifying
+    @Query(value = "delete from user_friends where user_id = (" +
+            "select user_id from app_users where login = :userLogin) and " +
+            "friend_id = (select user_id from app_users where login = :friendLogin)", nativeQuery = true)
+    void deleteUserFriend(@Param("userLogin") String userLogin, @Param("friendLogin") String friendLogin);
+
 }

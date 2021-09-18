@@ -73,4 +73,11 @@ public class UserManagementService {
         mUserRepository.deleteByLogin(login);
     }
 
+    public void deleteFriend(String friendLogin) {
+        CustomUser customUser = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String login = customUser.getUsername();
+
+        mUserRepository.deleteUserFriend(login, friendLogin);
+    }
+
 }

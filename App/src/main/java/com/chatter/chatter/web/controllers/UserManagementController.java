@@ -31,4 +31,9 @@ public class UserManagementController {
         mUserManagementService.deleteUser();
     }
 
+    @PutMapping("/api/v1/delete/friend/{login}")
+    public void deleteUser(@PathVariable("login") String friendLogin) throws IOException {
+        mUserManagementService.deleteFriend(friendLogin);
+    }
+
 }
