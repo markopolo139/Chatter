@@ -36,4 +36,9 @@ public class UserManagementController {
         mUserManagementService.deleteFriend(friendLogin);
     }
 
+    @PutMapping("/api/v1/user/admin/{login}")
+    public void addAdminRole(@PathVariable("login") String userLogin) throws IOException {
+        mUserManagementService.addAdminRole(userLogin);
+    }
+
 }

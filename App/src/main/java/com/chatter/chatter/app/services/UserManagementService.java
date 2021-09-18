@@ -12,7 +12,9 @@ import com.chatter.chatter.app.utils.AppUtils;
 import com.chatter.chatter.web.models.request.RegisterPayload;
 import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -53,7 +55,7 @@ public class UserManagementService {
                         registerPayload.email,null,true,
                         Collections.emptySet(), Collections.emptySet(),
                         new UserEntityDetails(registerPayload.firstName,registerPayload.lastName,null),
-                        Collections.singleton("USER")
+                        Collections.singleton("ROLE_USER")
                 )
         );
     }
@@ -78,6 +80,16 @@ public class UserManagementService {
         String login = customUser.getUsername();
 
         mUserRepository.deleteUserFriend(login, friendLogin);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    public void addAdminRole(String userLogin) {
+        UserEntity userEntity = mUserRepository.findByLogin(userLogin)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        userEntity.getUserRoles().add("ROLE_ADMIN");
+
+        mUserRepository.save(userEntity);
     }
 
 }
