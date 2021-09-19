@@ -13,10 +13,6 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.ConstraintViolationException;
-import java.io.FileNotFoundException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -80,6 +76,17 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
                 .setDefaultAction("Contact with admin")
                 .setHttpStatus(HttpStatus.BAD_REQUEST)
                 .setErrorMessage("File not found")
+                .build();
+
+        return convertErrorToResponseEntity(apiError);
+    }
+
+    @ExceptionHandler(UserRequestException.class)
+    public ResponseEntity<Object> handleUserAlreadyInFriendsException(UserRequestException exception) {
+        ApiError apiError = ApiError.builder()
+                .setDefaultAction("Select another user")
+                .setHttpStatus(HttpStatus.BAD_REQUEST)
+                .setErrorMessage(exception.getMessage())
                 .build();
 
         return convertErrorToResponseEntity(apiError);
