@@ -12,9 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -65,6 +63,8 @@ public class UserRequestService {
         if (requestOptions.equals(RequestOptions.ACCEPT)) {
             loggedInUser.getFriends().add(userRequested);
             userRequested.getFriends().add(loggedInUser);
+
+            userRequested.getPendingRequest().remove(loggedInUser);
         }
 
         loggedInUser.getPendingRequest().remove(userRequested);
@@ -73,12 +73,24 @@ public class UserRequestService {
     }
 
     public List<UserModel> findFriends(String pattern) {
+
+        String login = ((CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+
+        UserEntity loggedInUser = mUserRepository.findByLogin(login)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        Set<String> friendsLogins =
+                loggedInUser.getFriends().stream().map(UserEntity::getLogin).collect(Collectors.toSet());
+        friendsLogins.add(login);
+
         if(pattern.equals(""))
             mPattern = Pattern.compile("\\w*");
         else
             mPattern = Pattern.compile(pattern + ".*");
 
-        List<UserModel> users = mUserConverter.UserEntityListToModelList(new HashSet<>(mUserRepository.findAll()));
+        List<UserModel> users = mUserConverter.UserEntityListToModelList(
+                new HashSet<>(mUserRepository.findAllByLoginNotIn(new ArrayList<>(friendsLogins)))
+        );
 
         return users.stream().filter( i -> {
             mMatcher = mPattern.matcher(i.login);

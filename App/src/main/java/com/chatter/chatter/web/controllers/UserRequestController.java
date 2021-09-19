@@ -35,7 +35,7 @@ public class UserRequestController {
         mUserRequestService.handleRequest(userRequestedLogin, RequestOptions.valueOf(requestOption));
     }
 
-    @GetMapping("/api/v1/search/friends/{pattern}")
+    @GetMapping(value = {"/api/v1/search/friends/{pattern}", "/api/v1/search/friends"})
     public List<UserModel> searchFriends(@PathVariable(value = "pattern",required = false) String pattern) {
         if (pattern == null)
             pattern = "";
