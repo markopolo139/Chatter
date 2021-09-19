@@ -32,12 +32,12 @@ public class UserManagementController {
     }
 
     @PutMapping("/api/v1/delete/friend/{login}")
-    public void deleteUser(@PathVariable("login") String friendLogin) throws IOException {
+    public void deleteUser(@PathVariable("login") @Valid @NotBlank String friendLogin) throws IOException {
         mUserManagementService.deleteFriend(friendLogin);
     }
 
     @PutMapping("/api/v1/user/admin/{login}")
-    public void addAdminRole(@PathVariable("login") String userLogin) throws IOException {
+    public void addAdminRole(@PathVariable("login") @Valid @NotBlank String userLogin) throws IOException {
         mUserManagementService.addAdminRole(userLogin);
     }
 
