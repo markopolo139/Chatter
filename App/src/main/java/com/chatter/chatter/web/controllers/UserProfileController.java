@@ -37,4 +37,9 @@ public class UserProfileController {
         return mUserProfileService.getUserFriends(login, pattern);
     }
 
+    @GetMapping("/api/v1/get/user/friends/request")
+    public List<UserModel> getUserRequests() {
+        return mUserProfileService.getUserRequests();
+    }
+
 }

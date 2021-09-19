@@ -2,8 +2,10 @@ package com.chatter.chatter.app.services;
 
 import com.chatter.chatter.app.converters.UserConverter;
 import com.chatter.chatter.app.data.repository.UserRepository;
+import com.chatter.chatter.app.security.CustomUser;
 import com.chatter.chatter.web.models.response.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -44,6 +46,15 @@ public class UserProfileService {
             mMatcher = mPattern.matcher(i.login);
             return mMatcher.matches();
         }).collect(Collectors.toList());
+    }
+
+    public List<UserModel> getUserRequests() {
+
+        String login = ((CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+
+        return  mUserConverter.RequestsToUserModelList(
+                mUserRepository.findByLogin(login).orElseThrow(() -> new UsernameNotFoundException("User not found"))
+        );
     }
 
 }
