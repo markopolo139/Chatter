@@ -17,11 +17,13 @@ public class UserConverterImpl implements UserConverter{
     @Override
     public UserModel UserEntityToUserProfile(UserEntity userEntity) {
         FileSystemResourceLoader loader = new FileSystemResourceLoader();
+        String profilePhotoPath = userEntity.getUserEntityDetails().getPhoto();
         return new UserModel(
                 userEntity.getUserEntityDetails().getFirstName(),
                 userEntity.getUserEntityDetails().getLastName(),
                 userEntity.getLogin(),
-                userEntity.getFriends().size()
+                userEntity.getFriends().size(),
+                profilePhotoPath
                 );
     }
 

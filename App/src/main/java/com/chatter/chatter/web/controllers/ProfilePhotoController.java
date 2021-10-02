@@ -25,9 +25,9 @@ public class ProfilePhotoController {
     @Autowired
     private ProfilePhotoService mProfilePhotoService;
 
-    @GetMapping(value = "/api/v1/get/profile/photo/{login}", produces = MediaType.IMAGE_PNG_VALUE)
-    public Resource getProfilePhoto(@Valid @NotBlank @PathVariable String login) throws  InvalidPathException {
-        return mProfilePhotoService.getProfilePhotoByLogin(login);
+    @GetMapping(value = "/api/v1/get/profile/photo", produces = MediaType.IMAGE_PNG_VALUE)
+    public Resource getProfilePhoto(@Valid @NotBlank @RequestParam String photoPath) throws  InvalidPathException {
+        return mProfilePhotoService.getProfilePhotoByPhotoPath(photoPath);
     }
 
     @PutMapping(value = "/api/v1/set/profile/photo")

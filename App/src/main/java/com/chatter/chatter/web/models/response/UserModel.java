@@ -21,13 +21,17 @@ public class UserModel {
     @Min(0)
     public int howManyFriends;
 
+    @NotBlank
+    public String profilePhotoPath;
+
     public UserModel(
-            String firstName, String lastName, String login, int howManyFriends
+            String firstName, String lastName, String login, int howManyFriends, String profilePhotoPath
     ) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.login = login;
         this.howManyFriends = howManyFriends;
+        this.profilePhotoPath = profilePhotoPath;
     }
 
 }

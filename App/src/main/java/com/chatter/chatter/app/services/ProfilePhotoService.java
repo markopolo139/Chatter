@@ -10,6 +10,7 @@ import org.springframework.core.io.FileSystemResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,18 +27,15 @@ public class ProfilePhotoService {
     @Autowired
     private UserRepository mUserRepository;
 
-    public Resource getProfilePhotoByLogin(String login) throws InvalidPathException {
+    @PreAuthorize("hasRole('USER')")
+    public Resource getProfilePhotoByPhotoPath(String photoPath) throws InvalidPathException {
 
         FileSystemResourceLoader resourceLoader = new FileSystemResourceLoader();
 
-        String filePath = mUserRepository.findByLogin(login)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"))
-                .getUserEntityDetails().getPhoto();
-
-        if (filePath == null)
+        if (photoPath == null)
             throw new InvalidPathException();
 
-        return resourceLoader.getResource(Paths.get(filePath).toString());
+        return resourceLoader.getResource(Paths.get(photoPath).toString());
 
     }
 
