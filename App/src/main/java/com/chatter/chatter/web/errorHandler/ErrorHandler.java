@@ -103,6 +103,28 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
         return convertErrorToResponseEntity(apiError);
     }
 
+    @ExceptionHandler(GroupAlreadyExistException.class)
+    public ResponseEntity<Object> handleGroupAlreadyExistException(GroupAlreadyExistException exception) {
+        ApiError apiError = ApiError.builder()
+                .setDefaultAction("Create group with another name")
+                .setHttpStatus(HttpStatus.BAD_REQUEST)
+                .setErrorMessage(exception.getMessage())
+                .build();
+
+        return convertErrorToResponseEntity(apiError);
+    }
+
+    @ExceptionHandler(GroupDoesNotExists.class)
+    public ResponseEntity<Object> handleGroupDoesNotExists(GroupDoesNotExists exception) {
+        ApiError apiError = ApiError.builder()
+                .setDefaultAction("Type correct group name and/or admin login")
+                .setHttpStatus(HttpStatus.BAD_REQUEST)
+                .setErrorMessage(exception.getMessage())
+                .build();
+
+        return convertErrorToResponseEntity(apiError);
+    }
+
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
             MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request
