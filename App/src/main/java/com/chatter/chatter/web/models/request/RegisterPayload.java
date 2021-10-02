@@ -11,7 +11,7 @@ import javax.validation.constraints.Pattern;
 public class RegisterPayload {
 
     @NotBlank
-    @Pattern(regexp = "\\w*")
+    @Pattern(regexp = "\\w+")
     public String login;
 
     @NotBlank
