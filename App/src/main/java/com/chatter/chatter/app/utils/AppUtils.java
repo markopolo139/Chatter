@@ -10,10 +10,6 @@ import java.util.Arrays;
 
 public class AppUtils {
 
-    public static UserEntity getUserFromLogin(String login, UserRepository userRepository) {
-        return userRepository.findByLogin(login).orElseThrow(() -> new UsernameNotFoundException("User not found"));
-    }
-
     public static void validatePassword(String password) throws InvalidPasswordException {
         PasswordValidator passwordValidator = new PasswordValidator(
                 Arrays.asList(

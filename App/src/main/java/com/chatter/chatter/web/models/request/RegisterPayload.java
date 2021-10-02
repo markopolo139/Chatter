@@ -6,10 +6,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
 public class RegisterPayload {
 
     @NotBlank
+    @Pattern(regexp = "\\w*")
     public String login;
 
     @NotBlank
