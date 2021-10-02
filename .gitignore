@@ -4,6 +4,7 @@ build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
+App/src/main/resources/userFolders
 
 ### STS ###
 .apt_generated
