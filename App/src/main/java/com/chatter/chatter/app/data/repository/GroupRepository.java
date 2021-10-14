@@ -27,4 +27,8 @@ public interface GroupRepository extends JpaRepository<GroupEntity, Long> {
     @Modifying
     void deleteByAdminId_Login(String login);
 
+    @Transactional
+    @Modifying
+    void deleteByAdminId_LoginAndGroupName(String login, String groupName);
+
 }

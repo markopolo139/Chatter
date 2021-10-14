@@ -125,6 +125,28 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
         return convertErrorToResponseEntity(apiError);
     }
 
+    @ExceptionHandler(InvalidUserExceptions.class)
+    public ResponseEntity<Object> handleInvalidUserExceptions(InvalidUserExceptions exception) {
+        ApiError apiError = ApiError.builder()
+                .setDefaultAction("Correct error from message")
+                .setHttpStatus(HttpStatus.BAD_REQUEST)
+                .setErrorMessage(exception.getMessage())
+                .build();
+
+        return convertErrorToResponseEntity(apiError);
+    }
+
+    @ExceptionHandler(NotAnAdminException.class)
+    public ResponseEntity<Object> notAnAdminException(NotAnAdminException exception) {
+        ApiError apiError = ApiError.builder()
+                .setDefaultAction("User must be admin to take this action")
+                .setHttpStatus(HttpStatus.BAD_REQUEST)
+                .setErrorMessage(exception.getMessage())
+                .build();
+
+        return convertErrorToResponseEntity(apiError);
+    }
+
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
             MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request
