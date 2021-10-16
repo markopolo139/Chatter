@@ -3,6 +3,7 @@ package com.chatter.chatter.app.services;
 import com.chatter.chatter.app.converters.GroupConverter;
 import com.chatter.chatter.app.converters.UserConverter;
 import com.chatter.chatter.app.data.repository.GroupRepository;
+import com.chatter.chatter.app.exceptions.GroupDoesNotExists;
 import com.chatter.chatter.web.models.response.GroupModel;
 import com.chatter.chatter.web.models.response.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,9 +48,10 @@ public class GroupProfileService {
 
     }
 
-    public List<UserModel> getUsersInGroup(Long groupId) {
+    public List<UserModel> getUsersInGroup(String groupName, String adminLogin) throws GroupDoesNotExists {
         return mUserConverter.UserEntityListToModelList(
-                mGroupRepository.getById(groupId).getUsersInGroup()
+                mGroupRepository.findByGroupNameAndAdminId_Login(groupName, adminLogin)
+                        .orElseThrow(GroupDoesNotExists::new).getUsersInGroup()
         );
     }
 

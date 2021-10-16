@@ -1,5 +1,6 @@
 package com.chatter.chatter.web.controllers;
 
+import com.chatter.chatter.app.exceptions.GroupDoesNotExists;
 import com.chatter.chatter.app.services.GroupProfileService;
 import com.chatter.chatter.web.models.response.GroupModel;
 import com.chatter.chatter.web.models.response.UserModel;
@@ -31,12 +32,12 @@ public class GroupProfileController {
         return mGroupProfileService.getGroupsWhereIsSelectedUser(login, pattern);
     }
 
-    @GetMapping("/api/v1/get/group/users/{groupId}")
+    @GetMapping("/api/v1/get/group/users/{groupName}/{adminLogin}")
     public List<UserModel> getUsersInGroup(
-            @PathVariable(name = "groupId") @Valid @NotNull Long groupId
-
-    ) {
-        return mGroupProfileService.getUsersInGroup(groupId);
+            @PathVariable(name = "groupName") @Valid @NotNull String groupName,
+            @PathVariable(name = "adminLogin") @Valid @NotNull String adminLogin
+    ) throws GroupDoesNotExists {
+        return mGroupProfileService.getUsersInGroup(groupName, adminLogin);
     }
 
 
