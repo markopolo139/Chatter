@@ -52,7 +52,7 @@ public class GroupManagementsController {
     public void leaveGroup(
             @Valid @NotBlank @PathVariable("groupName") String groupName,
             @Valid @NotBlank @PathVariable("adminLogin") String adminLogin
-    ) throws InvalidUserExceptions, GroupDoesNotExists {
+    ) throws InvalidUserExceptions, GroupDoesNotExists, NotAnAdminException {
         mGroupManagementsService.leaveGroup(groupName, adminLogin);
     }
 
@@ -60,7 +60,7 @@ public class GroupManagementsController {
     public void deleteGroup(
             @Valid @NotBlank @PathVariable("groupName") String groupName,
             @Valid @NotBlank @PathVariable("adminLogin") String adminLogin
-    ) {
+    ) throws NotAnAdminException {
         mGroupManagementsService.deleteGroup(groupName, adminLogin);
     }
 

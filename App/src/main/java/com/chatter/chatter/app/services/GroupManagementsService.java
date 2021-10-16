@@ -88,7 +88,8 @@ public class GroupManagementsService {
 
     }
 
-    public void leaveGroup(String groupName, String adminLogin) throws GroupDoesNotExists, InvalidUserExceptions {
+    public void leaveGroup(String groupName, String adminLogin)
+            throws GroupDoesNotExists, InvalidUserExceptions, NotAnAdminException {
 
         String loggedInUserLogin =
                 ((CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
@@ -133,8 +134,15 @@ public class GroupManagementsService {
 
     }
 
-    public void deleteGroup(String groupName, String adminLogin) {
-        mGroupRepository.deleteByAdminId_LoginAndGroupName(groupName, adminLogin);
+    public void deleteGroup(String groupName, String adminLogin) throws NotAnAdminException {
+
+        String loggedInUser =
+                ((CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+
+        if (adminLogin.equals(loggedInUser))
+            mGroupRepository.deleteByAdminId_LoginAndGroupName(adminLogin, groupName);
+        else
+            throw new NotAnAdminException();
     }
 
     private void saveNewGroup(String adminLogin, String groupName) {
