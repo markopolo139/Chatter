@@ -31,14 +31,15 @@ public class GroupMessagesEntity {
     private LocalDateTime whenSend;
 
     public GroupMessagesEntity(
-            Long groupMessageId, UserEntity userFromId, GroupEntity groupToId, String content, MessageStatus status
+            Long groupMessageId, UserEntity userFromId, GroupEntity groupToId,
+            String content, MessageStatus status, LocalDateTime whenSend
     ) {
         this.groupMessageId = groupMessageId;
         this.userFromId = userFromId;
         this.groupToId = groupToId;
         this.content = content;
         this.status = status;
-        this.whenSend = LocalDateTime.now();
+        this.whenSend = whenSend;
     }
 
     protected GroupMessagesEntity() {}

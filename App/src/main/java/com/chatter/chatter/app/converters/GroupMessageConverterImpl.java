@@ -4,7 +4,6 @@ import com.chatter.chatter.app.data.entity.GroupMessagesEntity;
 import com.chatter.chatter.app.data.repository.GroupRepository;
 import com.chatter.chatter.app.data.repository.UserRepository;
 import com.chatter.chatter.web.models.NotificationModel;
-import com.chatter.chatter.web.models.request.GroupMessagePayload;
 import com.chatter.chatter.web.models.response.GroupMessageModel;
 import com.chatter.core.values.MessageStatus;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,16 +20,17 @@ public class GroupMessageConverterImpl implements GroupMessageConverter{
     private UserRepository mUserRepository;
 
     @Override
-    public GroupMessagesEntity payloadToEntity(GroupMessagePayload groupMessagePayload) {
+    public GroupMessagesEntity payloadToEntity(GroupMessageModel groupMessageModel) {
         return new GroupMessagesEntity(
                 null,
-                mUserRepository.findByLogin(groupMessagePayload.userFromLogin)
+                mUserRepository.findByLogin(groupMessageModel.userFromLogin)
                         .orElseThrow(() -> new UsernameNotFoundException("User not found")),
                 mGroupRepository.findByGroupNameAndAdminId_Login(
-                        groupMessagePayload.groupToName, groupMessagePayload.groupToAdminLogin
+                        groupMessageModel.groupToName, groupMessageModel.groupToAdminLogin
                 ).orElseThrow(() -> new UsernameNotFoundException("User not found")),
-                groupMessagePayload.content,
-                MessageStatus.SEND
+                groupMessageModel.content,
+                MessageStatus.valueOf(groupMessageModel.status),
+                groupMessageModel.whenSend
         );
     }
 

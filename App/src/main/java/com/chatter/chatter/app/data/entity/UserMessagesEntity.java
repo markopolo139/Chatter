@@ -30,14 +30,15 @@ public class UserMessagesEntity {
     private LocalDateTime whenSend;
 
     public UserMessagesEntity(
-            Long userMessageId, UserEntity userFromId, UserEntity userToId, String content, MessageStatus status
+            Long userMessageId, UserEntity userFromId, UserEntity userToId,
+            String content, MessageStatus status, LocalDateTime whenSend
     ) {
         this.userMessageId = userMessageId;
         this.userFromId = userFromId;
         this.userToId = userToId;
         this.content = content;
         this.status = status;
-        this.whenSend = LocalDateTime.now();
+        this.whenSend = whenSend;
     }
 
     protected UserMessagesEntity() {}
