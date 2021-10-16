@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
 public class UserMessageConverterImpl implements UserMessageConverter{
 
@@ -44,5 +47,10 @@ public class UserMessageConverterImpl implements UserMessageConverter{
     @Override
     public NotificationModel modelToNotification(UserMessageModel userMessageModel) {
         return new NotificationModel(userMessageModel.userFromLogin,null, userMessageModel.whenSend);
+    }
+
+    @Override
+    public List<UserMessageModel> entityListToModel(List<UserMessagesEntity> userMessagesEntities) {
+        return userMessagesEntities.stream().map(this::entityToModel).collect(Collectors.toList());
     }
 }

@@ -6,6 +6,8 @@ import com.chatter.chatter.web.models.NotificationModel;
 import com.chatter.chatter.web.models.response.GroupMessageModel;
 import com.chatter.chatter.web.models.response.UserMessageModel;
 
+import java.util.List;
+
 public interface UserMessageConverter {
 
     UserMessagesEntity payloadToEntity(UserMessageModel userMessageModel);
@@ -13,5 +15,8 @@ public interface UserMessageConverter {
     UserMessageModel entityToModel(UserMessagesEntity userMessagesEntity);
 
     NotificationModel modelToNotification(UserMessageModel userMessageModel);
+
+    List<UserMessageModel> entityListToModel(List<UserMessagesEntity> userMessagesEntities);
+
 
 }

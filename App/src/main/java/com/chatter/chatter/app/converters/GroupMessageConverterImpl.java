@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
 public class GroupMessageConverterImpl implements GroupMessageConverter{
 
@@ -52,5 +55,10 @@ public class GroupMessageConverterImpl implements GroupMessageConverter{
         return new NotificationModel(
                 groupMessageModel.userFromLogin, groupMessageModel.groupToName, groupMessageModel.whenSend
         );
+    }
+
+    @Override
+    public List<GroupMessageModel> entityListToModel(List<GroupMessagesEntity> groupMessagesEntities) {
+        return groupMessagesEntities.stream().map(this::entityToModel).collect(Collectors.toList());
     }
 }
