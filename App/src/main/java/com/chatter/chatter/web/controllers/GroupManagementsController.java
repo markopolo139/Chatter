@@ -7,10 +7,7 @@ import com.chatter.chatter.app.exceptions.NotAnAdminException;
 import com.chatter.chatter.app.services.GroupManagementsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -31,7 +28,7 @@ public class GroupManagementsController {
         mGroupManagementsService.createGroup(groupName);
     }
 
-    @PostMapping("/api/v1/group/add/user/{groupName}/{adminLogin}/{addUserLogin}")
+    @PutMapping("/api/v1/group/add/user/{groupName}/{adminLogin}/{addUserLogin}")
     public void addUser(
             @Valid @NotBlank @PathVariable("groupName") String groupName,
             @Valid @NotBlank @PathVariable("adminLogin") String adminLogin,
@@ -40,7 +37,7 @@ public class GroupManagementsController {
         mGroupManagementsService.addUser(groupName, adminLogin, addUserLogin);
     }
 
-    @PostMapping("/api/v1/group/delete/user/{groupName}/{deleteUserLogin}")
+    @PutMapping("/api/v1/group/delete/user/{groupName}/{deleteUserLogin}")
     public void deleteUser(
             @Valid @NotBlank @PathVariable("groupName") String groupName,
             @Valid @NotBlank @PathVariable("deleteUserLogin") String deleteUserLogin
@@ -48,7 +45,7 @@ public class GroupManagementsController {
         mGroupManagementsService.deleteUser(groupName, deleteUserLogin);
     }
 
-    @PostMapping("/api/v1/group/leave/{groupName}/{adminLogin}")
+    @PutMapping("/api/v1/group/leave/{groupName}/{adminLogin}")
     public void leaveGroup(
             @Valid @NotBlank @PathVariable("groupName") String groupName,
             @Valid @NotBlank @PathVariable("adminLogin") String adminLogin
@@ -56,7 +53,7 @@ public class GroupManagementsController {
         mGroupManagementsService.leaveGroup(groupName, adminLogin);
     }
 
-    @PostMapping("/api/v1/group/delete/{groupName}/{adminLogin}")
+    @DeleteMapping("/api/v1/group/delete/{groupName}/{adminLogin}")
     public void deleteGroup(
             @Valid @NotBlank @PathVariable("groupName") String groupName,
             @Valid @NotBlank @PathVariable("adminLogin") String adminLogin
@@ -64,7 +61,7 @@ public class GroupManagementsController {
         mGroupManagementsService.deleteGroup(groupName, adminLogin);
     }
 
-    @PostMapping("/api/v1/group/change/admin/{groupName}/{userAdminCandidateLogin}")
+    @PutMapping("/api/v1/group/change/admin/{groupName}/{userAdminCandidateLogin}")
     public void changeGroupAdmin(
             @Valid @NotBlank @PathVariable("groupName") String groupName,
             @Valid @NotBlank @PathVariable("userAdminCandidateLogin") String userAdminCandidateLogin
