@@ -64,7 +64,7 @@ public class GroupManagementsController {
         mGroupManagementsService.deleteGroup(groupName, adminLogin);
     }
 
-    @PostMapping("/api/v1/group/change/admin/{groupName}/{userAdminCandidateLogin}}")
+    @PostMapping("/api/v1/group/change/admin/{groupName}/{userAdminCandidateLogin}")
     public void changeGroupAdmin(
             @Valid @NotBlank @PathVariable("groupName") String groupName,
             @Valid @NotBlank @PathVariable("userAdminCandidateLogin") String userAdminCandidateLogin
