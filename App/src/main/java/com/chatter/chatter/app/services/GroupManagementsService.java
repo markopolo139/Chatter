@@ -56,7 +56,7 @@ public class GroupManagementsService {
         if (groupEntity.getUsersInGroup().stream().map(UserEntity::getLogin).noneMatch(i -> i.equals(loggedInUserLogin)))
             throw new InvalidUserExceptions("You are not in selected group");
 
-        UserEntity addUser = mUserRepository.findByLogin(adminLogin)
+        UserEntity addUser = mUserRepository.findByLogin(addUserLogin)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
         if (groupEntity.getUsersInGroup().contains(addUser))
