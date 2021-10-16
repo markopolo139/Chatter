@@ -6,6 +6,8 @@ import java.time.LocalDateTime;
 
 public class GroupMessageModel {
 
+    public Long messageId;
+
     @NotBlank
     public String userFromLogin;
 
@@ -26,7 +28,7 @@ public class GroupMessageModel {
 
     public GroupMessageModel(
             String userFromLogin, String groupToAdminLogin, String groupToName,
-            String content, String status, LocalDateTime whenSend
+            String content, String status, LocalDateTime whenSend, Long messageId
     ) {
         this.userFromLogin = userFromLogin;
         this.groupToAdminLogin = groupToAdminLogin;
@@ -34,5 +36,6 @@ public class GroupMessageModel {
         this.content = content;
         this.status = status;
         this.whenSend = whenSend;
+        this.messageId = messageId;
     }
 }

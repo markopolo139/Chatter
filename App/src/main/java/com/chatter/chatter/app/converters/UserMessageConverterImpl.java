@@ -36,7 +36,8 @@ public class UserMessageConverterImpl implements UserMessageConverter{
                 userMessagesEntity.getUserToId().getLogin(),
                 userMessagesEntity.getContent(),
                 userMessagesEntity.getStatus().name(),
-                userMessagesEntity.getWhenSend()
+                userMessagesEntity.getWhenSend(),
+                userMessagesEntity.getUserMessageId()
         );
     }
 

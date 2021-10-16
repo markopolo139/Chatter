@@ -42,7 +42,8 @@ public class GroupMessageConverterImpl implements GroupMessageConverter{
                 groupMessagesEntity.getGroupToId().getGroupName(),
                 groupMessagesEntity.getContent(),
                 groupMessagesEntity.getStatus().name(),
-                groupMessagesEntity.getWhenSend()
+                groupMessagesEntity.getWhenSend(),
+                groupMessagesEntity.getGroupMessageId()
         );
     }
 
