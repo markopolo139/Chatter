@@ -1,5 +1,7 @@
 package com.chatter.chatter.web.models.response;
 
+import org.springframework.lang.Nullable;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -20,7 +22,7 @@ public class UserMessageModel {
     @NotBlank
     public String status;
 
-    @NotNull
+    @Nullable
     public LocalDateTime whenSend;
 
     public UserMessageModel(
