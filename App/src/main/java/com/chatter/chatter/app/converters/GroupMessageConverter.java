@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface GroupMessageConverter {
 
-    GroupMessagesEntity payloadToEntity(GroupMessageModel groupMessageModel);
+    GroupMessagesEntity modelToEntity(GroupMessageModel groupMessageModel);
 
     GroupMessageModel entityToModel(GroupMessagesEntity groupMessagesEntity);
 

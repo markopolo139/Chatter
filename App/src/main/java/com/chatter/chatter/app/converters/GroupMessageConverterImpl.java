@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,9 +24,9 @@ public class GroupMessageConverterImpl implements GroupMessageConverter{
     private UserRepository mUserRepository;
 
     @Override
-    public GroupMessagesEntity payloadToEntity(GroupMessageModel groupMessageModel) {
+    public GroupMessagesEntity modelToEntity(GroupMessageModel groupMessageModel) {
         return new GroupMessagesEntity(
-                null,
+                groupMessageModel.messageId,
                 mUserRepository.findByLogin(groupMessageModel.userFromLogin)
                         .orElseThrow(() -> new UsernameNotFoundException("User not found")),
                 mGroupRepository.findByGroupNameAndAdminId_Login(
@@ -33,7 +34,7 @@ public class GroupMessageConverterImpl implements GroupMessageConverter{
                 ).orElseThrow(() -> new UsernameNotFoundException("User not found")),
                 groupMessageModel.content,
                 MessageStatus.valueOf(groupMessageModel.status),
-                groupMessageModel.whenSend
+                groupMessageModel.whenSend == null ? LocalDateTime.now() : groupMessageModel.whenSend
         );
     }
 

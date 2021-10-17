@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,16 +20,16 @@ public class UserMessageConverterImpl implements UserMessageConverter{
     private UserRepository mUserRepository;
 
     @Override
-    public UserMessagesEntity payloadToEntity(UserMessageModel userMessageModel) {
+    public UserMessagesEntity modelToEntity(UserMessageModel userMessageModel) {
         return new UserMessagesEntity(
-                null,
+                userMessageModel.messageId,
                 mUserRepository.findByLogin(userMessageModel.userFromLogin)
                         .orElseThrow(() -> new UsernameNotFoundException("User not found")),
                 mUserRepository.findByLogin(userMessageModel.userToLogin)
                         .orElseThrow(() -> new UsernameNotFoundException("User not found")),
                 userMessageModel.content,
                 MessageStatus.valueOf(userMessageModel.status),
-                userMessageModel.whenSend
+                userMessageModel.whenSend == null ? LocalDateTime.now() : userMessageModel.whenSend
         );
     }
 

@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface UserMessageConverter {
 
-    UserMessagesEntity payloadToEntity(UserMessageModel userMessageModel);
+    UserMessagesEntity modelToEntity(UserMessageModel userMessageModel);
 
     UserMessageModel entityToModel(UserMessagesEntity userMessagesEntity);
 
